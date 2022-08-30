@@ -4,6 +4,7 @@
 class GameObject;
 class Projectile;
 class Character;
+class EnemySpawner;
 class GameManager
 {
 public:
@@ -21,6 +22,8 @@ private:
 	// likewise, projectiles only to the projectiles vector
 	std::vector<Character*> characters;
 	std::vector<Projectile*> projectiles;
+
+	std::vector<EnemySpawner*> spawners;
 };
 
 namespace Manager

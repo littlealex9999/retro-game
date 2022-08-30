@@ -18,6 +18,7 @@ public:
 	float getMaxLifeTime() { return maxLifeTime; }
 	float getCurrentLifeTime() { return currentLifeTime; }
 	float getCooldown() { return cooldownInduction; }
+	float getDamage() { return damage; }
 
 protected:
 	float maxLifeTime;

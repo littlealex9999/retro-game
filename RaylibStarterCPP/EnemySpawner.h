@@ -4,11 +4,15 @@ class Enemy;
 class EnemySpawner
 {
 public:
-	EnemySpawner(float delay, Enemy enemy);
+	EnemySpawner(float delay, Enemy* enemy);
+	~EnemySpawner();
 	void Spawn();
 
-	float spawnDelay;
+	float spawnTimer;
 	Enemy* enemyToSpawn;
 
 	void Update(const float dt);
+
+protected:
+	float spawnDelay;
 };

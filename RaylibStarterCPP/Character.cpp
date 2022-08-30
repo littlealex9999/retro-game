@@ -2,7 +2,7 @@
 #include "Projectile.h"
 #include "GameManager.h"
 
-Character::Character(float hp, Vector2 pos, Vector2 fac, Team team) : GameObject(pos, fac, Team::PLAYER), health { hp }
+Character::Character(float hp, Vector2 pos, Vector2 fac, Team team) : GameObject(pos, fac, team), health { hp }
 { }
 
 Character::~Character()
@@ -44,6 +44,11 @@ void Character::SetProjectiles(const std::vector<Projectile*> &proj)
 
 	currentProjectileToShoot = 0;
 	projectiles = proj;
+}
+
+bool Character::CheckCollision(Vector2 pos)
+{
+	return false;
 }
 
 void Character::OffScreenAction(std::vector<Character*> goVector, std::vector<Character*>::iterator iteration)

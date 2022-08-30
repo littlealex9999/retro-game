@@ -1,11 +1,15 @@
 #include "GameManager.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Projectile.h"
+#include "EnemySpawner.h"
 
 GameManager::GameManager()
 { 
 	characters.push_back(new Player { 100, 50, Vector2{5, 10}, Vector2{ GetScreenWidth() / 2.f, GetScreenHeight() / 2.f }, Vector2{ 0, -1 } });
-	characters[0]->SetProjectiles({ new Projectile( 5, 50, 10, 1, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER ) });
+	characters[0]->SetProjectiles({ new Projectile( 5, 50, 50, 1, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER ) });
+
+	spawners.push_back(new EnemySpawner(5.f, new Enemy(50, { 100, 0 }, { 0, 1 })));
 }
 
 GameManager::~GameManager()
@@ -65,9 +69,19 @@ void GameManager::Update(const float dt)
 
 		for (int j = 0; j < projectiles.size(); j++) {
 			if (characters[i]->team != projectiles[j]->team || characters[i]->team == GameObject::Team::NONE) {
-
+				if (characters[i]->CheckCollision(projectiles[j]->position)) {
+					characters[i]->TakeDamage(projectiles[j]->getDamage());
+					delete projectiles[j];
+					projectiles.erase(projectiles.begin() + j);
+					j--;
+					continue;
+				}
 			}
 		}
+	}
+
+	for (EnemySpawner* s : spawners) {
+		s->Update(dt);
 	}
 }
 

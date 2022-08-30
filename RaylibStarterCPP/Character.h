@@ -14,6 +14,7 @@ public:
 	void TakeDamage(float dmg);
 	void Shoot();
 	void SetProjectiles(const std::vector<Projectile*> &proj);
+	virtual bool CheckCollision(Vector2 pos);
 
 	virtual void OffScreenAction(std::vector<Character*> goVector, std::vector<Character*>::iterator iteration);
 
