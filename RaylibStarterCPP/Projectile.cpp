@@ -6,7 +6,7 @@ Projectile::Projectile(float life, float spd, float dmg, float cld, Vector2 pos,
 	maxLifeTime { life }, speed { spd }, damage { dmg }, cooldownInduction { cld }
 { }
 
-Projectile::Projectile(const Projectile & proj) : Projectile(proj.maxLifeTime, proj.speed, proj.damage, proj.cooldownInduction, proj.position, proj.facing, proj.team)
+Projectile::Projectile(const Projectile* proj) : Projectile(proj->maxLifeTime, proj->speed, proj->damage, proj->cooldownInduction, proj->position, proj->facing, proj->team)
 { }
 
 void Projectile::hitCharacter(Character * chara)
@@ -26,5 +26,5 @@ void Projectile::Update(const float dt)
 
 void Projectile::Draw()
 { 
-	DrawCircle(position.x, position.y, 5, ORANGE);
+	DrawCircle(position.x, position.y, 2, ORANGE);
 }

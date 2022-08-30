@@ -7,9 +7,11 @@
 GameManager::GameManager()
 { 
 	characters.push_back(new Player { 100, 50, Vector2{5, 10}, Vector2{ GetScreenWidth() / 2.f, GetScreenHeight() / 2.f }, Vector2{ 0, -1 } });
-	characters[0]->SetProjectiles({ new Projectile( 5, 50, 50, 1, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER ) });
+	characters[0]->SetProjectiles({ new Projectile( 5, 50, 50, 0.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER ) });
 
-	spawners.push_back(new EnemySpawner(5.f, new Enemy(50, { 100, 0 }, { 0, 1 })));
+	Enemy* e = new Enemy(50, { 100, 0 }, { 0, 1 });
+	e->SetProjectiles({ new Projectile(10, 20, 20, 1, { 0, 0 }, { 0, 1 }, GameObject::Team::ENEMY) });
+	spawners.push_back(new EnemySpawner(5.f, e));
 }
 
 GameManager::~GameManager()
@@ -36,6 +38,7 @@ void GameManager::addProjectile(Projectile* proj)
 
 void GameManager::Update(const float dt)
 {
+	// updates all projectiles
 	// update projectiles first as we have to repeatedly check them later
 	for (int j = 0; j < projectiles.size(); j++) {
 		projectiles[j]->Update(dt);
@@ -52,7 +55,7 @@ void GameManager::Update(const float dt)
 		}
 	}
 
-
+	// updates and checks collisions on all characters
 	for (int i = 0; i < characters.size(); i++) {
 		characters[i]->Update(dt);
 
@@ -67,6 +70,7 @@ void GameManager::Update(const float dt)
 			characters[i]->OffScreenAction(characters, characters.begin() + i);
 		}
 
+		// checks for collision with all projectiles
 		for (int j = 0; j < projectiles.size(); j++) {
 			if (characters[i]->team != projectiles[j]->team || characters[i]->team == GameObject::Team::NONE) {
 				if (characters[i]->CheckCollision(projectiles[j]->position)) {

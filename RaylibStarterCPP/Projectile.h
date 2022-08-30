@@ -7,7 +7,7 @@ class Projectile : public GameObject
 {
 public:
 	Projectile(float life, float spd, float dmg, float cld, Vector2 pos, Vector2 fac, Team team);
-	Projectile(const Projectile &proj);
+	Projectile(const Projectile* proj);
 
 	void hitCharacter(Character* chara);
 	virtual void OffScreenAction(std::vector<Projectile*> goVector, std::vector<Projectile*>::iterator iteration);
