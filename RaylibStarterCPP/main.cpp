@@ -26,6 +26,11 @@
 #include "raygui.h"
 #include "GameManager.h"
 
+namespace Manager
+{
+    GameManager manager = { };
+}
+
 int main(int argc, char* argv[])
 {
     // Initialization
@@ -34,8 +39,6 @@ int main(int argc, char* argv[])
     int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "retro game");
-
-    GameManager manager;
 
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
@@ -47,7 +50,7 @@ int main(int argc, char* argv[])
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         
-        manager.Update(GetFrameTime());
+        Manager::manager.Update(GetFrameTime());
 
         //----------------------------------------------------------------------------------
 
@@ -57,7 +60,7 @@ int main(int argc, char* argv[])
 
         ClearBackground(RAYWHITE);
 
-        manager.Draw();
+        Manager::manager.Draw();
 
         EndDrawing();
         //----------------------------------------------------------------------------------

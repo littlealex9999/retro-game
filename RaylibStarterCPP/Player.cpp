@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "raymath.h"
 
-Player::Player(float spd, Vector2 siz, Vector2 pos, Vector2 fac) : GameObject(pos, fac, Team::PLAYER), speed { spd }
+Player::Player(float hp, float spd, Vector2 siz, Vector2 pos, Vector2 fac) : Character(hp, pos, fac, Team::PLAYER), speed { spd }
 { 
 	rec.width = siz.x;
 	rec.height = siz.y;
@@ -58,7 +58,14 @@ Vector2 Player::MoveInput()
 	return target;
 }
 
-void Player::OffScreenAction(std::vector<GameObject*> goVector, std::vector<GameObject*>::iterator iteration)
+void Player::ShootInput()
+{ 
+	if (shootCooldown <= 0 && IsKeyDown(KeyboardKey::KEY_SPACE)) {
+		Shoot();
+	}
+}
+
+void Player::OffScreenAction(std::vector<Character*> goVector, std::vector<Character*>::iterator iteration)
 { 
 	position.x = Clamp(position.x, 0, GetScreenWidth());
 	position.y = Clamp(position.y, 0, GetScreenHeight());
@@ -66,9 +73,13 @@ void Player::OffScreenAction(std::vector<GameObject*> goVector, std::vector<Game
 
 void Player::Update(const float dt)
 { 
+	Character::Update(dt);
+
 	Move(dt, Vector2Scale(MoveInput(), speed));
 	rec.x = position.x;
 	rec.y = position.y;
+
+	ShootInput();
 }
 
 void Player::Draw()

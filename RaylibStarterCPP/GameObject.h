@@ -20,7 +20,6 @@ public:
 	Team team;
 
 	virtual void Move(const float dt, Vector2 moveAmount);
-	virtual void OffScreenAction(std::vector<GameObject*> goVector, std::vector<GameObject*>::iterator iteration);
 
 	virtual void Update(const float dt);
 	virtual void Draw();

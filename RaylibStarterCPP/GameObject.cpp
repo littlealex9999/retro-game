@@ -17,6 +17,3 @@ void GameObject::Move(const float dt, Vector2 moveAmount)
 	position.x += moveAmount.x * dt;
 	position.y += moveAmount.y * dt;
 }
-
-void GameObject::OffScreenAction(std::vector<GameObject*> goVector, std::vector<GameObject*>::iterator iteration)
-{ }
