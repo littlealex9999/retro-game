@@ -25,6 +25,9 @@
 #define RAYGUI_SUPPORT_ICONS
 #include "raygui.h"
 #include "GameManager.h"
+#include "Player.h"
+#include <string>
+std::string playerHealthText;
 
 namespace Manager
 {
@@ -38,7 +41,7 @@ int main(int argc, char* argv[])
     int screenWidth = 800;
     int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "retro game");
+    InitWindow(screenWidth, screenHeight, "Retro Game");
 
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
@@ -61,6 +64,14 @@ int main(int argc, char* argv[])
         ClearBackground(RAYWHITE);
 
         Manager::manager.Draw();
+
+        if (Manager::manager.getPlayer() != nullptr) {
+            playerHealthText = "Life: ";
+            playerHealthText.append(std::to_string(Manager::manager.getPlayer()->health));
+            DrawText(playerHealthText.c_str(), 0, screenHeight - 20, 15, GRAY);
+        } else {
+            DrawText("YOU DIED", screenWidth / 2, screenHeight / 2, 20, GRAY);
+        }
 
         EndDrawing();
         //----------------------------------------------------------------------------------

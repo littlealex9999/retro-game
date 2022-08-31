@@ -1,16 +1,18 @@
 #include "GameManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "BasicEnemy.h"
 #include "Projectile.h"
 #include "EnemySpawner.h"
 
 GameManager::GameManager()
 { 
-	characters.push_back(new Player { 100, 50, Vector2{5, 10}, Vector2{ GetScreenWidth() / 2.f, GetScreenHeight() / 2.f }, Vector2{ 0, -1 } });
+	player = new Player { 100, 50, Vector2{5, 10}, Vector2{ GetScreenWidth() / 2.f, GetScreenHeight() / 2.f }, Vector2{ 0, -1 } };
+	characters.push_back(player);
 	characters[0]->SetProjectiles({ new Projectile( 5, 50, 50, 0.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER ) });
 
-	Enemy* e = new Enemy(50, { 100, 0 }, { 0, 1 });
-	e->SetProjectiles({ new Projectile(10, 20, 20, 1, { 0, 0 }, { 0, 1 }, GameObject::Team::ENEMY) });
+	BasicEnemy* e = new BasicEnemy({ 0, 30 });
+	e->SetProjectiles({ new Projectile(10, 20, 20, 3.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::ENEMY) });
 	spawners.push_back(new EnemySpawner(5.f, e));
 }
 
@@ -59,7 +61,13 @@ void GameManager::Update(const float dt)
 	for (int i = 0; i < characters.size(); i++) {
 		characters[i]->Update(dt);
 
+		// deletes character if their health is below 0
+		// checks if deleted character is player to end game
 		if (characters[i]->health <= 0) {
+			if (dynamic_cast<Player*>(characters[i])) {
+				player = nullptr;
+			}
+
 			delete characters[i];
 			characters.erase(characters.begin() + i);
 			i--;

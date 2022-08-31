@@ -9,10 +9,10 @@ public:
 	void Spawn();
 
 	float spawnTimer;
-	Enemy* enemyToSpawn;
 
 	void Update(const float dt);
 
 protected:
+	Enemy* enemyToSpawn;
 	float spawnDelay;
 };

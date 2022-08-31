@@ -5,8 +5,8 @@ class Projectile;
 class Enemy : public Character
 {
 public:
-	Enemy(float hp, Vector2 pos, Vector2 fac);
-	Enemy(const Enemy* e);
+	Enemy(float hp, float spd, Vector2 pos, Vector2 fac);
+	Enemy(const Enemy &e);
 
 	bool CheckCollision(Vector2 pos) override;
 

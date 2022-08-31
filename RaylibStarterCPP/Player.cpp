@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "raymath.h"
+#include "GameManager.h"
 
-Player::Player(float hp, float spd, Vector2 siz, Vector2 pos, Vector2 fac) : Character(hp, pos, fac, Team::PLAYER), speed { spd }
+Player::Player(float hp, float spd, Vector2 siz, Vector2 pos, Vector2 fac) : Character(hp, spd, pos, fac, Team::PLAYER)
 { 
 	rec.width = siz.x;
 	rec.height = siz.y;
@@ -10,6 +11,7 @@ Player::Player(float hp, float spd, Vector2 siz, Vector2 pos, Vector2 fac) : Cha
 }
 
 // returns normal of input directions
+// W, A, S, D  to move
 Vector2 Player::MoveInput()
 { 
 	Vector2 target = { };
@@ -58,6 +60,7 @@ Vector2 Player::MoveInput()
 	return target;
 }
 
+// SPACE  to shoot
 void Player::ShootInput()
 { 
 	if (shootCooldown <= 0 && IsKeyDown(KeyboardKey::KEY_SPACE)) {
@@ -69,6 +72,11 @@ void Player::OffScreenAction(std::vector<Character*> goVector, std::vector<Chara
 { 
 	position.x = Clamp(position.x, 0, GetScreenWidth());
 	position.y = Clamp(position.y, 0, GetScreenHeight());
+}
+
+bool Player::CheckCollision(Vector2 point)
+{
+	return CheckCollisionPointRec(point, { position.x - drawOffset.x, position.y - drawOffset.y, rec.width, rec.height });
 }
 
 void Player::Update(const float dt)

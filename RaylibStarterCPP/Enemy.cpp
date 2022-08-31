@@ -1,14 +1,15 @@
 #include "Enemy.h"
 #include "Projectile.h";
+#include <iostream>
 
-Enemy::Enemy(float hp, Vector2 pos, Vector2 fac) : Character(hp, pos, fac, Team::ENEMY)
+Enemy::Enemy(float hp, float spd, Vector2 pos, Vector2 fac) : Character(hp, spd, pos, fac, Team::ENEMY)
 { }
 
-Enemy::Enemy(const Enemy* e) : Enemy(e->health, e->position, e->facing)
+Enemy::Enemy(const Enemy &e) : Enemy(e.health, e.speed, e.position, e.facing)
 { 
 	projectiles = { };
-	for (Projectile* proj : e->projectiles) {
-		projectiles.push_back(new Projectile(proj));
+	for (Projectile* proj : e.projectiles) {
+		projectiles.push_back(new Projectile(*proj));
 	}
 }
 

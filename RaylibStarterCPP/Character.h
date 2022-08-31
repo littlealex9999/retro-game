@@ -6,15 +6,17 @@ class Projectile;
 class Character : public GameObject
 {
 public:
-	Character(float hp, Vector2 pos, Vector2 fac, Team team);
+	Character(float hp, float spd, Vector2 pos, Vector2 fac, Team team);
 	~Character();
 
 	float health;
+	float speed;
 
 	void TakeDamage(float dmg);
 	void Shoot();
 	void SetProjectiles(const std::vector<Projectile*> &proj);
 	virtual bool CheckCollision(Vector2 pos);
+	virtual void OnCollisionChara(Character chara);
 
 	virtual void OffScreenAction(std::vector<Character*> goVector, std::vector<Character*>::iterator iteration);
 
