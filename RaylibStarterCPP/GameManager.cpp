@@ -30,8 +30,8 @@ GameManager::~GameManager()
 void GameManager::Init()
 { 
 	player = new Player { 100, 50, Vector2{5, 10}, Vector2{ GetScreenWidth() / 2.f, GetScreenHeight() / 2.f }, Vector2{ 0, -1 } };
+	player->SetProjectiles({ new Projectile(5, 100, 20, 0.23f, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER) });
 	characters.push_back(player);
-	characters[0]->SetProjectiles({ new Projectile(5, 50, 50, 0.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER) });
 
 	BasicEnemy* e = new BasicEnemy({ 0, 30 });
 	e->SetProjectiles({ new ShrapnelShot(GameObject::Team::ENEMY) });
@@ -115,6 +115,17 @@ void GameManager::Update(const float dt)
 
 	for (EnemySpawner* s : spawners) {
 		s->Update(dt);
+	}
+
+	// adds new enemy spawners after passing a point threshold
+	if (score > 0 && spawners.size() > 0 && score / 100 / spawners.size() > spawners.size()) {
+		BasicEnemy* e = new BasicEnemy({ 0, 30 });
+		e->SetProjectiles({ new ShrapnelShot(GameObject::Team::ENEMY) });
+		spawners.push_back(new EnemySpawner(5.5f, e));
+
+		FastEnemy* fastE = new FastEnemy({ 0, 15 });
+		fastE->SetProjectiles({ new Projectile(3, 35, 10, 1 / ((spawners.size() - 1.f) / 4.f), GameObject::Team::ENEMY) });
+		spawners.push_back(new EnemySpawner(4.5f, fastE));
 	}
 }
 

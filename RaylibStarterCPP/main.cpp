@@ -55,7 +55,9 @@ int main(int argc, char* argv[])
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         
-        Manager::manager.Update(GetFrameTime());
+        if (Manager::manager.getPlayer() != nullptr) {
+            Manager::manager.Update(GetFrameTime());
+        }
 
         //----------------------------------------------------------------------------------
 
@@ -70,7 +72,11 @@ int main(int argc, char* argv[])
         if (Manager::manager.getPlayer() != nullptr) {
             gameText = "Life: ";
             gameText.append(std::to_string(Manager::manager.getPlayer()->health));
-            DrawText(gameText.c_str(), 0, screenHeight - 20, 15, GRAY);
+            DrawText(gameText.c_str(), 10, screenHeight - 40, 15, GRAY);
+
+            gameText = "Score: ";
+            gameText.append(std::to_string(Manager::manager.getScore()));
+            DrawText(gameText.c_str(), 10, screenHeight - 20, 15, GRAY);
         } else {
             DrawText("YOU DIED", screenWidth / 2 - MeasureText("YOU DIED", 20) / 2, screenHeight / 2 - 10, 20, GRAY);
             gameText = "Score: ";
