@@ -38,6 +38,11 @@ GameManager::~GameManager()
 	}
 }
 
+void GameManager::addScore(int add)
+{ 
+	score += add;
+}
+
 void GameManager::addCharacter(Character* chara)
 {
 	characters.push_back(chara);
@@ -74,7 +79,9 @@ void GameManager::Update(const float dt)
 		// deletes character if their health is below 0
 		// checks if deleted character is player to end game
 		if (characters[i]->health <= 0) {
-			if (dynamic_cast<Player*>(characters[i])) {
+			if (dynamic_cast<Enemy*>(characters[i])) {
+				addScore(dynamic_cast<Enemy*>(characters[i])->score);
+			} else if (dynamic_cast<Player*>(characters[i])) {
 				player = nullptr;
 			}
 

@@ -1,14 +1,13 @@
 #pragma once
 #include "Character.h"
 
-class Projectile;
 class Enemy : public Character
 {
 public:
-	Enemy(float hp, float spd, Vector2 pos, Vector2 fac);
+	Enemy(float hp, float spd, int scr, Vector2 pos, Vector2 fac);
 	Enemy(const Enemy &e);
 
-	float score;
+	int score;
 
 	bool CheckCollision(Vector2 pos) override;
 

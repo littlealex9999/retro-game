@@ -1,11 +1,12 @@
 #include "Enemy.h"
 #include "Projectile.h";
+#include "GameManager.h"
 #include <iostream>
 
-Enemy::Enemy(float hp, float spd, Vector2 pos, Vector2 fac) : Character(hp, spd, pos, fac, Team::ENEMY)
+Enemy::Enemy(float hp, float spd, int scr, Vector2 pos, Vector2 fac) : Character(hp, spd, pos, fac, Team::ENEMY), score { scr }
 { }
 
-Enemy::Enemy(const Enemy &e) : Enemy(e.health, e.speed, e.position, e.facing)
+Enemy::Enemy(const Enemy &e) : Enemy(e.health, e.speed, e.score, e.position, e.facing)
 { 
 	projectiles = { };
 	for (Projectile* proj : e.projectiles) {

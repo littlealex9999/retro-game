@@ -27,7 +27,7 @@
 #include "GameManager.h"
 #include "Player.h"
 #include <string>
-std::string playerHealthText;
+std::string gameText;
 
 namespace Manager
 {
@@ -66,11 +66,14 @@ int main(int argc, char* argv[])
         Manager::manager.Draw();
 
         if (Manager::manager.getPlayer() != nullptr) {
-            playerHealthText = "Life: ";
-            playerHealthText.append(std::to_string(Manager::manager.getPlayer()->health));
-            DrawText(playerHealthText.c_str(), 0, screenHeight - 20, 15, GRAY);
+            gameText = "Life: ";
+            gameText.append(std::to_string(Manager::manager.getPlayer()->health));
+            DrawText(gameText.c_str(), 0, screenHeight - 20, 15, GRAY);
         } else {
             DrawText("YOU DIED", screenWidth / 2, screenHeight / 2, 20, GRAY);
+            gameText = "Score: ";
+            gameText.append(std::to_string(Manager::manager.getScore()));
+            DrawText(gameText.c_str(), screenWidth / 2, screenHeight / 2 + 20, 20, GRAY);
         }
 
         EndDrawing();

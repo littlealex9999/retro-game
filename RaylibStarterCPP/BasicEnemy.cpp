@@ -3,7 +3,7 @@
 #include "raymath.h"
 #include <iostream>
 
-BasicEnemy::BasicEnemy(Vector2 pos) : Enemy(50, 20, pos, { 0, 1 }), rec { pos.x, pos.y, 20, 10 }, drawOffset { rec.width / 2, rec.height / 2 }
+BasicEnemy::BasicEnemy(Vector2 pos) : Enemy(50, 20, 20, pos, { 0, 1 }), rec { pos.x, pos.y, 20, 10 }, drawOffset { rec.width / 2, rec.height / 2 }
 { }
 
 BasicEnemy::BasicEnemy(const BasicEnemy &e) : BasicEnemy(e.position)

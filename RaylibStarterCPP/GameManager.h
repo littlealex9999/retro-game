@@ -12,6 +12,8 @@ public:
 	GameManager();
 	~GameManager();
 
+	void addScore(int add);
+
 	void addCharacter(Character* chara);
 	void addProjectile(Projectile* proj);
 
@@ -20,6 +22,8 @@ public:
 
 	Player* getPlayer() { return player; }
 	void setPlayer(Player* player) { this->player = player; }
+
+	int getScore() { return score; }
 
 private:
 	// only characters should be added to characters vector
@@ -30,6 +34,7 @@ private:
 	std::vector<EnemySpawner*> spawners;
 
 	Player* player;
+	int score = 0;
 };
 
 namespace Manager

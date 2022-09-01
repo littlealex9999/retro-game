@@ -2,7 +2,7 @@
 #include "Projectile.h"
 #include "raymath.h"
 
-FastEnemy::FastEnemy(Vector2 pos) : Enemy(20, 70, pos, { 0, 1 }), rec { pos.x, pos.y, 8, 8 }, drawOffset { rec.width / 2, rec.height / 2 }
+FastEnemy::FastEnemy(Vector2 pos) : Enemy(20, 70, 15, pos, { 0, 1 }), rec { pos.x, pos.y, 8, 8 }, drawOffset { rec.width / 2, rec.height / 2 }
 { }
 
 FastEnemy::FastEnemy(const FastEnemy & en) : FastEnemy(en.position)
