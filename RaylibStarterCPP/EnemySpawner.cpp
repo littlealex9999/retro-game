@@ -1,6 +1,7 @@
 #include "EnemySpawner.h"
 #include "GameManager.h"
 #include "BasicEnemy.h"
+#include "FastEnemy.h"
 #include <chrono>
 
 EnemySpawner::EnemySpawner(float delay, Enemy* enemy) : spawnDelay { delay }, enemyToSpawn { enemy }, spawnTimer { delay }
@@ -16,6 +17,8 @@ void EnemySpawner::Spawn()
 	if (enemyToSpawn != nullptr) {
 		if (dynamic_cast<BasicEnemy*>(enemyToSpawn)) {
 			Manager::manager.addCharacter(new BasicEnemy(*dynamic_cast<BasicEnemy*>(enemyToSpawn)));
+		} else if (dynamic_cast<FastEnemy*>(enemyToSpawn)) {
+			Manager::manager.addCharacter(new FastEnemy(*dynamic_cast<FastEnemy*>(enemyToSpawn)));
 		} else {
 			Manager::manager.addCharacter(new Enemy(*enemyToSpawn));
 		}

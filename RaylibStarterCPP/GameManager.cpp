@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "EnemySpawner.h"
 #include "ShrapnelShot.h"
+#include "FastEnemy.h"
 
 GameManager::GameManager()
 { 
@@ -14,8 +15,11 @@ GameManager::GameManager()
 
 	BasicEnemy* e = new BasicEnemy({ 0, 30 });
 	e->SetProjectiles({ new ShrapnelShot(GameObject::Team::ENEMY) });
-	// new Projectile(10, 20, 20, 3.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::ENEMY)
-	spawners.push_back(new EnemySpawner(5.f, e));
+	spawners.push_back(new EnemySpawner(5.5f, e));
+
+	FastEnemy* fastE = new FastEnemy({ 0, 15 });
+	fastE->SetProjectiles({ new Projectile(3, 35, 10, 1, GameObject::Team::ENEMY) });
+	spawners.push_back(new EnemySpawner(4.5f, fastE));
 }
 
 GameManager::~GameManager()
@@ -27,6 +31,10 @@ GameManager::~GameManager()
 
 	for (int j = 0; j < projectiles.size(); j++) {
 		delete projectiles[j];
+	}
+
+	for (int k = 0; k < spawners.size(); k++) {
+		delete spawners[k];
 	}
 }
 
