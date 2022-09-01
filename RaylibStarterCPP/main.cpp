@@ -43,6 +43,8 @@ int main(int argc, char* argv[])
 
     InitWindow(screenWidth, screenHeight, "Retro Game");
 
+    Manager::manager.Init();
+
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
@@ -70,10 +72,10 @@ int main(int argc, char* argv[])
             gameText.append(std::to_string(Manager::manager.getPlayer()->health));
             DrawText(gameText.c_str(), 0, screenHeight - 20, 15, GRAY);
         } else {
-            DrawText("YOU DIED", screenWidth / 2, screenHeight / 2, 20, GRAY);
+            DrawText("YOU DIED", screenWidth / 2 - MeasureText("YOU DIED", 20) / 2, screenHeight / 2 - 10, 20, GRAY);
             gameText = "Score: ";
             gameText.append(std::to_string(Manager::manager.getScore()));
-            DrawText(gameText.c_str(), screenWidth / 2, screenHeight / 2 + 20, 20, GRAY);
+            DrawText(gameText.c_str(), screenWidth / 2  - MeasureText(gameText.c_str(), 20) / 2, screenHeight / 2 + 10, 20, GRAY);
         }
 
         EndDrawing();

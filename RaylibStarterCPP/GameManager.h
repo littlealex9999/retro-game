@@ -12,6 +12,8 @@ public:
 	GameManager();
 	~GameManager();
 
+	void Init();
+
 	void addScore(int add);
 
 	void addCharacter(Character* chara);
