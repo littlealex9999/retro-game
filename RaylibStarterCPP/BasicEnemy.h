@@ -17,5 +17,5 @@ public:
 
 protected:
 	void HandleMove(const float dt);
-	bool moveRight;
+	bool moveRight = false;
 };

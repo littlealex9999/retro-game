@@ -13,18 +13,21 @@ EnemySpawner::~EnemySpawner()
 
 void EnemySpawner::Spawn()
 { 
-	if (dynamic_cast<BasicEnemy*>(enemyToSpawn)) {
-		Manager::manager.addCharacter(new BasicEnemy(*dynamic_cast<BasicEnemy*>(enemyToSpawn)));
-	} else {
-		Manager::manager.addCharacter(new Enemy(*enemyToSpawn));
+	if (enemyToSpawn != nullptr) {
+		if (dynamic_cast<BasicEnemy*>(enemyToSpawn)) {
+			Manager::manager.addCharacter(new BasicEnemy(*dynamic_cast<BasicEnemy*>(enemyToSpawn)));
+		} else {
+			Manager::manager.addCharacter(new Enemy(*enemyToSpawn));
+		}
 	}
 }
 
 void EnemySpawner::Update(const float dt)
 { 
 	spawnTimer -= dt;
-
-	enemyToSpawn->position.x = std::chrono::system_clock::now().time_since_epoch().count() % GetScreenWidth();
+	if (enemyToSpawn != nullptr) {
+		enemyToSpawn->position.x = std::chrono::system_clock::now().time_since_epoch().count() % GetScreenWidth();
+	}
 
 	if (spawnTimer <= 0) {
 		Spawn();

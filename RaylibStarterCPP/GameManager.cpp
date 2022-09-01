@@ -4,6 +4,7 @@
 #include "BasicEnemy.h"
 #include "Projectile.h"
 #include "EnemySpawner.h"
+#include "ShrapnelShot.h"
 
 GameManager::GameManager()
 { 
@@ -12,7 +13,8 @@ GameManager::GameManager()
 	characters[0]->SetProjectiles({ new Projectile( 5, 50, 50, 0.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::PLAYER ) });
 
 	BasicEnemy* e = new BasicEnemy({ 0, 30 });
-	e->SetProjectiles({ new Projectile(10, 20, 20, 3.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::ENEMY) });
+	e->SetProjectiles({ new ShrapnelShot(GameObject::Team::ENEMY) });
+	// new Projectile(10, 20, 20, 3.5f, { 0, 0 }, { 0, 1 }, GameObject::Team::ENEMY)
 	spawners.push_back(new EnemySpawner(5.f, e));
 }
 

@@ -2,11 +2,8 @@
 #include "raymath.h"
 #include "GameManager.h"
 
-Player::Player(float hp, float spd, Vector2 siz, Vector2 pos, Vector2 fac) : Character(hp, spd, pos, fac, Team::PLAYER)
+Player::Player(float hp, float spd, Vector2 siz, Vector2 pos, Vector2 fac) : Character(hp, spd, pos, fac, Team::PLAYER), rec { pos.x, pos.y, siz.x, siz.y }
 { 
-	rec.width = siz.x;
-	rec.height = siz.y;
-
 	drawOffset = { siz.x / 2, siz.y / 2 };
 }
 
